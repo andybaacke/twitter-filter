@@ -1,0 +1,139 @@
+results {
+  clear: both;
+  display: block;
+  margin: 1em 0 0;
+  min-height: 50%;
+
+  .loading {
+    text-align: center;
+    padding: 5em 1em;
+
+    .disc {
+      margin: 0 auto 2em;
+      width: 8em;
+      height: 8em;
+      border-radius: 50%;
+      animation: rotating-disc 2s linear infinite;
+      background-color: $color-lightblue;
+      box-shadow: 5px 5px 10px 1px $color-gray inset;
+      position: relative;
+
+      @keyframes rotating-disc {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+        border-radius: 50%;
+        background-color: $color-white;
+      }
+    }
+  }
+
+  #filter-container {
+    &:before {
+      content: 'Filter: ';
+      position: absolute;
+      margin-top: 0.25em;
+    }
+
+    #filter {
+      width: 100%;
+      font-size: 1em;
+      padding: 0.25em 0 0.25em 5em;
+      border-bottom: 1px solid $color-gray;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+      color: $color-darkblue;
+
+      &:focus {
+        outline: none;
+        padding-bottom: calc(0.25em - 1px);
+        border-bottom-width: 2px;
+      }
+    }
+  }
+
+  #results-list {
+    position: relative;
+    margin: 0;
+    padding: 1.75em 0 0;
+    list-style: none;
+    column-gap: 1em;
+
+    li {
+      display: block;
+      margin: 0 0 1em;
+      padding: 0.5em;
+      border: 1px solid $color-gray;
+      border-radius: 1.5em 0.25em 0.25em 0.25em;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      column-break-inside: avoid;
+      page-break-inside: avoid; // firefox
+      break-inside: avoid-column; // IE
+
+      &:nth-child(odd) {
+        background-color: $color-lightgray;
+      }
+
+      .author {
+        padding: 0 0 1em calc(2em - 0.25em);
+        position: relative;
+        transform: translateZ(0); // fix overflow bug with columns
+
+        img {
+          height: 2em;
+          width: 2em;
+          border-radius: 50%;
+          box-shadow: -1px -1px 0 0 $color-gray, 2px 2px 1px 0 $color-gray;
+          background-color: $color-white;
+          position: absolute;
+          left: -1em;
+          top: 0;
+        }
+
+        .date {
+          display: block;
+        }
+      }
+
+      .text {
+        font-size: 1rem;
+
+        img,
+        video {
+          max-width: 100%;
+          margin-top: 0.5em;
+
+          @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            width: 100%; // fix IE doesn't honor max-width here
+          }
+        }
+      }
+    }
+
+    &:before {
+      content: attr(showing);
+      position: absolute;
+      display: inline-block;
+      right: 0;
+      top: 0.5em;
+      font-size: 0.85em;
+    }
+
+    @media (min-width: map-get($breakpoints, tablet)) {
+      column-count: 2;
+    }
+  }
+}

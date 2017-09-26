@@ -1,0 +1,10 @@
+{
+  "name": "nm-twitter-lambda",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "tweet-to-html": "^1.0.2",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {}
+}

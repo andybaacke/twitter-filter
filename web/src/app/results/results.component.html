@@ -1,0 +1,30 @@
+<div class="loading" *ngIf="!tweets?.length">
+  <div class="disc"></div>
+  {{noResultsReason}}
+</div>
+
+<div *ngIf="tweets?.length">
+  <div id="filter-container">
+    <input id="filter" type="text" [(ngModel)]="tweetFilter">
+  </div>
+
+  <ol id="results-list" attr.showing="Showing {{(tweets | filterBy:['text','user.name','user.screen_name']:tweetFilter)?.length}} of {{tweets?.length}}">
+    <li *ngFor="let tweet of tweets | filterBy:['text','user.name','user.screen_name']:tweetFilter | orderBy:'user.screen_name'">
+      <div class="author">
+        <img src="{{tweet.user.profile_image_url_https}}">
+        <div>
+          {{tweet.user.name}}
+          <small> -
+            <a target="_blank" href="https://twitter.com/{{tweet.user.screen_name}}">
+              @{{tweet.user.screen_name}}
+            </a>
+          </small>
+          <small class="date">
+            {{tweet.created_at | date:'yMMMd'}}
+          </small>
+        </div>
+      </div>
+      <div class="text" [innerHtml]="tweet.html"></div>
+    </li>
+  </ol>
+</div>

@@ -1,0 +1,6 @@
+/lambda/node_modules/
+/lambda/*.zip
+
+/web/.tmp/
+/web/dist/
+/web/node_modules/
